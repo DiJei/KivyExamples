@@ -1,0 +1,24 @@
+# File name: control.kv
+#:kivy 1.9.0
+<Control>:
+	orientation: 'vertical'
+	
+	frente: _frente
+	atras: _atras
+	direita: _direita
+	esquerda: _esquerda
+	
+	Label:
+		text: 'controle'
+	Button:
+		id: _frente
+		text: 'frente'
+	Button:
+	    id: _atras
+		text: 'tras'
+	Button:
+		id: _direita
+		text: 'direita'
+	Button:
+		id: _esquerda
+		text: 'esquerda'
