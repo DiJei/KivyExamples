@@ -24,9 +24,7 @@ class DragBlock(RelativeLayout):
                 self.left_block.command_list = [self.left_block.id]
             self.left_block = None
             self.selected = True
-        elif self.left_block is not None :
-            self.center = (self.left_block.center_x + self.left_block.width,self.left_block.center_y)
-        return RelativeLayout.on_touch_down(self, touch)
+            return True
 
     def on_touch_move(self, touch):
         if self.selected:
@@ -64,10 +62,10 @@ class DragBlock(RelativeLayout):
         return RelativeLayout.on_touch_up(self, touch)
 
     def checkRight(self,block,touch):
-        if touch.x - (self.width/2) > block.x + (block.width/2) and touch.x - (self.width/2) < block.x  + block.width and self.y >= block.y and self.y <= block.y + block.height:
+        if self.x > block.x + (block.width/2) and self.x < block.x  + block.width and self.y >= block.y and self.y <= block.y + block.height:
             return True
     def checkLeft(self,block,touch):
-        if touch.x + (self.width/2) > block.x  and touch.x + (self.width/2) < block.x + (block.width/2) and self.y >= block.y and self.y <= block.y + block.height:
+        if self.x + self.width > block.x  and self.x + self.width < block.x + (block.width/2) and self.y >= block.y and self.y <= block.y + block.height:
             return True
 
 class DragPlayButton(DragBlock):
