@@ -11,7 +11,7 @@
 				size: self.size
 		MenuBar:
 			id: _menu_bar
-			
+
 	RelativeLayout:
 		canvas.before:
 			Color:
@@ -20,22 +20,22 @@
 				size: self.size
 				source: 'images/background.png'
 		size_hint: 1,0.95
-	
+
 		RelativeLayout:
-			id: _trash_can	
+			id: _trash_can
 			size_hint: None,None
 			size: _blocks_menu.height*0.8,_blocks_menu.height*0.8
 			pos_hint: {'right': 1,'y':0.22}
 			canvas:
-				Rectangle:	
+				Rectangle:
 					size: self.size
 					source: 'images/trash_can.png'
-				
+
 		BlocksMenu:
 			size_hint: 1,0.25
 			id: _blocks_menu
 			drawing_area: _drawing_area
-			
+
 		DrawingArea:
 			size_hint: 1,0.75
 			id: _drawing_area
