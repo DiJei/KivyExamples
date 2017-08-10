@@ -7,15 +7,13 @@ from wifi import my_socket
 class DragBlock(RelativeLayout):
     id = 0
     command_list = []
-    def __init__(self,**kwargs):
+    def __init__(self,id,source_photo,**kwargs):
         super(DragBlock, self).__init__(**kwargs)
         self.selected = True
         self.left_block = None
-
-    def setId(self,id,source_photo):
         self.id = id
         self.command_list = [self.id]
-        with self.canvas.before:
+        with self.canvas:
             Rectangle(source=source_photo, pos=self.pos, size=self.size)
 
     def on_touch_down(self, touch):
@@ -28,10 +26,12 @@ class DragBlock(RelativeLayout):
 
     def on_touch_move(self, touch):
         if self.selected:
-            self.center = (touch.x,touch.y)
-        elif self.left_block is not None :
-            self.center = (self.left_block.center_x + self.left_block.width,self.left_block.center_y)
-        return RelativeLayout.on_touch_move(self, touch)
+            for block in self.parent.children:
+                if block is self:
+                    self.center = (touch.x,touch.y)
+                elif block.left_block is not None :
+                    block.center = (block.left_block.center_x + block.left_block.width,block.left_block.center_y)
+        return RelativeLayout.on_touch_up(self, touch)
 
     def on_touch_up(self, touch):
         if (self.selected):
@@ -52,12 +52,13 @@ class DragBlock(RelativeLayout):
                         block.command_list = block.command_list + self.command_list
                         self.pos = self.left_block.x + self.left_block.width, self.left_block.y
                         left_block = True
+                    elif block.left_block is not None:
+                        block.center = (block.left_block.center_x + block.left_block.width,block.left_block.center_y)
+                        block.left_block.command_list = [block.left_block.id] + block.command_list
             if left_block is not True:
                 self.left_block = None
             self.selected = False
-        elif self.left_block is not None:
-            self.center = (self.left_block.center_x + self.left_block.width,self.left_block.center_y)
-            self.left_block.command_list = [self.left_block.id] + self.command_list
+            return True
         #Return default event for upper class
         return RelativeLayout.on_touch_up(self, touch)
 
@@ -71,17 +72,30 @@ class DragBlock(RelativeLayout):
 class DragPlayButton(DragBlock):
     command_list = {}
     data_list = []
-    def __init__(self):
-        DragBlock.__init__(self)
-        self.play_button.bind(on_press=self.sendCommands)
 
+    def on_touch_down(self, touch):
+        if self.collide_point(touch.x, touch.y):
+            if self.checkCenter(touch):
+                self.sendCommands()
+            if self.left_block is not None:
+                self.left_block.command_list = [self.left_block.id]
+            self.left_block = None
+            self.selected = True
+            return True
 
     def checkRight(self,block,touch):
         return False
 
-    def sendCommands(self,*args):
+    def sendCommands(self):
         self.data_list = self.command_list[1:]
         msg = ""
         for x in self.data_list:
             msg += str(x)
         my_socket.send_data(msg)
+
+    def checkCenter(self,touch):
+        if touch.x > self.x + self.width*0.70 or touch.x < self.x + self.width*0.30:
+            return False
+        if touch.y > self.y + self.height*0.70 or touch.y < self.y + self.height*0.30:
+            return False
+        return True

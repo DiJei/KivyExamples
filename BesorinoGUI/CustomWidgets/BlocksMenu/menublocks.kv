@@ -2,62 +2,19 @@
 #:import menublocks menublocks
 #:kivy 1.9.0
 
-<BlocksMenu@TabbedPanel>:
+<Block>:
+	size_hint: None, None
+	height: self.height
+	width:  self.height
+	canvas:
+		Color:
+			rgba: 1,0,0
+		Rectangle:
+			size: self.size
+
+
+
+<BlocksMenu>:
+
 	size_hint: 1,1
-    do_default_tab: False
-
-    TabbedPanelItem:
-        text: 'Blocos A'
-		StackLayout:
-			ForwardBlock:
-				id: _forward_block
-				size_hint: None,1
-				width: self.height
-				canvas.before:
-					Rectangle:
-						size: self.size
-						source: 'images/forward.png'
-			ReverseBlock:
-				id: _reverse_block
-				size_hint: None,1
-				width: self.height
-				canvas.before:
-					Rectangle:
-						size: self.size
-						source: 'images/reverse.png'
-			TurnRightBlock:
-				id: _turn_right_block
-				size_hint: None,1
-				width: self.height
-				canvas.before:
-					Rectangle:
-						size: self.size
-						source: 'images/turn_right.png'
-
-			TurnLeftBlock:
-				id: _turn_left_block
-				size_hint: None,1
-				width: self.height
-				canvas.before:
-					Rectangle:
-						size: self.size
-						source: 'images/turn_left.png'
-    TabbedPanelItem:
-        text: 'Blocos B'
-		StackLayout:
-			PlayBlock:
-				id: _play_button_block
-				size_hint: None,1
-				width: self.height
-				canvas.before:
-					Color:
-						rgb: 1,1,0
-					Rectangle:
-						size: self.size
-				Button:
-					size_hint_y: 0.5
-					width: self.height
-					pos: self.width*0.5, self.height*0.5
-					id: _play_button
-					Label:
-						text: 'Play'
+	do_default_tab: False

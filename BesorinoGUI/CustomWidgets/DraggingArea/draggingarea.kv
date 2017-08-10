@@ -5,18 +5,15 @@
 <DragBlock>:
 	size_hint: None,0.25
 	width: self.height
-
+	canvas.before:
+		Color:
+			rgb: 0,1,0
+		Rectangle:
+			size: self.size
 
 <DragPlayButton>:
-	play_button: _play_button
+	id: play_button
 	size_hint: None,0.25
 	width: self.height
-	Button:
-		id: _play_button
-		size_hint_y: 0.5
-		width: self.height
-		pos: self.width*0.5, self.height*0.5
-		Label:
-			text: 'Play'
 
 <DrawingArea@RelativeLayout>:
