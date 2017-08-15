@@ -2,7 +2,7 @@
   "tabs": [
     {
       "id":"actuators",
-      "rgba": [0,1,0],
+      "rgba": [0,1,0,1],
       "blocks":[
         {
           "name":"forward",
@@ -11,12 +11,12 @@
         },
         {
           "name":"reverse",
-          "id": "2",
+          "id": "3",
           "source":"images/reverse.png"
         },
         {
           "name":"turn_right",
-          "id": "3",
+          "id": "2  ",
           "source":"images/turn_right.png"
         },
         {
@@ -28,7 +28,7 @@
     },
     {
       "id":"functions",
-      "rgba": [0,0,1],
+      "rgba": [0,0,1,1],
       "blocks":[
         {
          "name":"forward",
@@ -36,6 +36,12 @@
          "source":"images/playicon.png"
         }
       ]
+    },
+    {
+      "id": "extra",
+      "rgba": [0,0,0,1],
+      "blocks":
+      []
     }
   ]
 }

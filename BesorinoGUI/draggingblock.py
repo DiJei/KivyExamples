@@ -13,8 +13,10 @@ class DragBlock(RelativeLayout):
         self.left_block = None
         self.id = id
         self.command_list = [self.id]
+        self.bind(pos=self.update)
+        self.bind(size=self.update)
         with self.canvas:
-            Rectangle(source=source_photo, pos=self.pos, size=self.size)
+            self.rect = Rectangle(source=source_photo, pos=self.pos, size=self.size)
 
     def on_touch_down(self, touch):
         if self.collide_point(touch.x, touch.y):
@@ -35,9 +37,10 @@ class DragBlock(RelativeLayout):
 
     def on_touch_up(self, touch):
         if (self.selected):
+            menu_block = self.parent.block_menu
             trash_can = self.parent.trash_can
             #Delete the DragBlock
-            if trash_can.collide_point(touch.x, touch.y):
+            if trash_can.collide_point(touch.x, touch.y) or menu_block.collide_point(touch.x, touch.y):
                 self.parent.remove_widget(self)
                 return True
             #Connect Blocks
@@ -61,6 +64,9 @@ class DragBlock(RelativeLayout):
             return True
         #Return default event for upper class
         return RelativeLayout.on_touch_up(self, touch)
+
+    def update(self, *args):
+        self.rect.size = (self.size)
 
     def checkRight(self,block,touch):
         if self.x > block.x + (block.width/2) and self.x < block.x  + block.width and self.y >= block.y and self.y <= block.y + block.height:
