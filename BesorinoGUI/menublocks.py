@@ -4,13 +4,13 @@ from kivy.uix.tabbedpanel import TabbedPanel
 from kivy.uix.tabbedpanel import TabbedPanelItem
 from kivy.uix.stacklayout import StackLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.widget import Widget
 from kivy.graphics import Rectangle
-from kivy.graphics import Color
 from draggingblock import DragBlock
 from draggingblock import DragPlayButton
-
+from kivy.core.audio import SoundLoader
 import json
+
+click_sound = SoundLoader.load('sounds/touch.wav')
 
 #Tab
 class BlocksMenu(TabbedPanel):
@@ -28,7 +28,7 @@ class BlocksMenu(TabbedPanel):
                 for color in tab["rgba"]:
                     color_tab.append(color)
                 newTab.background_color = color_tab
-                newLayout = StackLayout()
+                newLayout = StackLayout(spacing = 10)
                 for block in tab["blocks"]:
                     newBlock = Block(int(block["id"]),str(block["source"]))
                     newLayout.add_widget(newBlock)
@@ -56,6 +56,7 @@ class Block(RelativeLayout):
                 self.draw(self.da, x, y,self.blockID,self.source_image)
             else:
                 self.drawPlay(self.da, x, y,self.blockID,self.source_image)
+            click_sound.play()
             return True
         return super(Block,self).on_touch_down(touch)
 
