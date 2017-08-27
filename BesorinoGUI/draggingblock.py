@@ -40,7 +40,7 @@ class DragBlock(RelativeLayout):
                 if block is self:
                     self.center = (touch.x,touch.y)
                 elif block.left_block is not None :
-                    block.center = (block.left_block.center_x + block.left_block.width,block.left_block.center_y)
+                    block.center = (block.left_block.center_x + block.left_block.width*0.77,block.left_block.center_y)
         return RelativeLayout.on_touch_up(self, touch)
 
     def on_touch_up(self, touch):
@@ -57,15 +57,15 @@ class DragBlock(RelativeLayout):
                 if block is not self:
                     if self.checkLeft(block,touch):
                         block.left_block = self
-                        self.pos = block.x - block.width, block.y
+                        self.pos = block.x - block.width*0.77, block.y
                     elif self.checkRight(block, touch):
                         self.left_block = block
                         block.command_list = block.command_list + self.command_list
-                        self.pos = self.left_block.x + self.left_block.width, self.left_block.y
+                        self.pos = self.left_block.x + self.left_block.width*0.77, self.left_block.y
                         left_block = True
                         connect_sound.play()
                     elif block.left_block is not None:
-                        block.center = (block.left_block.center_x + block.left_block.width,block.left_block.center_y)
+                        block.center = (block.left_block.center_x + block.left_block.width*0.77,block.left_block.center_y)
                         block.left_block.command_list = [block.left_block.id] + block.command_list
             if left_block is not True:
                 self.left_block = None
@@ -108,9 +108,9 @@ class DragPlayButton(DragBlock):
         for x in self.data_list:
             msg += str(x)
         if my_socket.send_data(msg):
-            play_sound_fail.play()
-        else:
             play_sound_succes.play()
+        else:
+            play_sound_fail.play()
 
     def checkCenter(self,touch):
         if touch.x > self.x + self.width*0.70 or touch.x < self.x + self.width*0.30:
