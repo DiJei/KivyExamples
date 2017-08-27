@@ -7,22 +7,27 @@
         {
           "name":"forward",
           "id": "1",
-          "source":"images/forward.png"
+          "source":"images/actuators/forward_brick.png"
         },
         {
           "name":"reverse",
           "id": "3",
-          "source":"images/reverse.png"
+          "source":"images/actuators/reverse_brick.png"
         },
         {
           "name":"turn_right",
           "id": "2  ",
-          "source":"images/turn_right.png"
+          "source":"images/actuators/right_brick.png"
         },
         {
           "name":"turn_left",
            "id": "4",
-          "source":"images/turn_left.png"
+          "source":"images/actuators/left_brick.png"
+        },
+        {
+          "name":"claw",
+           "id": "5",
+          "source":"images/actuators/claw_brick.png"
         }
       ]
     },
@@ -33,12 +38,12 @@
         {
          "name":"forward",
          "id": "0",
-         "source":"images/playicon.png"
+         "source":"images/functions/play_brick.png"
         }
       ]
     },
     {
-      "id": "extra",
+      "id": "sensors",
       "rgba": [0,0,0,1],
       "blocks":
       []

@@ -19,7 +19,7 @@ class BlocksMenu(TabbedPanel):
         self.buildTab()
 
     def buildTab(self):
-        self.background_image = "images/block_tab_background.png"
+        self.background_image = "images/gui_elements/tab_darkblue.png"
         with open("config/blocks.json") as json_data:
             blocks_config = json.load(json_data)
             for tab in blocks_config["tabs"]:
