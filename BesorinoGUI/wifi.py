@@ -10,16 +10,16 @@ class WifiUDP():
             self.udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             self.dest = (self.HOST, self.PORT)
             self.udp.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-        except socket.error, msg:
-            print 'Failed to create socket. Error code: ' + str(msg[0]) + ' , Error message : ' + msg[1]
+        except:
+            print ('Failed to create socket. Error code: ' + str(msg[0]) + ' , Error message : ' + str(msg[1]))
 
     def connect(self):
         if self.isConneted is not True:
             try:
                 self.udp.connect(self.dest)
                 self.isConneted = True
-            except socket.error, msg:
-                print 'Failed to connect. Error code: ' + str(msg[0]) + ' , Error message : ' + msg[1]
+            except:
+                print ('Failed to connect. Error code: ' + str(msg[0]) + ' , Error message : ' + str(msg[1]))
                 self.isConneted = False
 
 
@@ -29,8 +29,8 @@ class WifiUDP():
             try:
                 self.udp.send(data)
                 return True
-            except socket.error, msg:
-                print 'Failed to send. Error code: ' + str(msg[0]) + ' , Error message : ' + msg[1]
+            except:
+                print ('Failed to send. Error code: ' + str(msg[0]) + ' , Error message : ' + str(msg[1]))
                 self.isConneted = False
                 return False
         else:
